@@ -1,103 +1,107 @@
+"use client";
+import { useState } from "react";
+import BurgerMenu from "../components/BurgerMenu";
+import logo from "../assets/logo.png";
+import introGif from "../assets/intro.gif";
+import howGif from "../assets/how.gif";
 import Image from "next/image";
+import Box from "../components/Box"; // Import the Box component
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [expandedBox, setExpandedBox] = useState(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleBoxClick = (box) => {
+    setExpandedBox(expandedBox === box ? null : box);
+  };
+
+  return (
+    <div className="grid grid-rows-[20px_1fr_auto] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <header className="w-full flex justify-between items-center p-2 sm:p-4">
+        <div className="flex items-center">
+          <Image
+            src={logo}
+            alt="Logo"
+            width="12.5rem"
+            height="12.5rem"
+            className="mr-1 sm:mr-2"
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        <BurgerMenu />
+      </header>
+      <Image
+        src={introGif}
+        alt="Intro"
+        width="80vw"
+        height="80vh"
+        className="w-[80vw] h-[80vh] rounded-2xl mb-2 p-2 mt-2"
+      />
+      <div className="w-[80vw] h-[60vh] flex items-center">
+        <Image
+          src={howGif}
+          alt="How"
+          width="50%"
+          height="auto"
+          className="w-[40%] h-[70%] rounded-lg"
+        />
+        <div className="ml-auto p-8 rounded-lg w-[50%] h-[70%] flex flex-col justify-center items-center">
+          <h1 className="text-green-500 text-4xl font-bold mb-4 font-serif">How To Dime.On</h1>
+          <p className="text-white text-lg">You just continue spending on the things you love – Dime.On will automatically round up all online transactions, and invest the difference in a fund of your choice.</p>
+        </div>
+      </div>
+      <h1 className="text-center text-5xl font-bold font-serif mt-2">Your investment, Your way</h1>
+      <div className="w-[80vw] flex justify-between mt-4">
+        <div onClick={() => handleBoxClick("ROUND-UP")}>
+          <Box
+            heading="ROUND-UP"
+            description="With Dimeon, you can invest your spare change effortlessly every time you make an online payment.
+For example, if you spend ₹257 on an item, Dimeon will round up the amount and invest ₹3 — making your total debit ₹260.
+Tiny Rounds, Big Rewards — Let your spare change build your future with Dimeon!"
+            bgColor="bg-purple-200"
+            isExpanded={expandedBox === "ROUND-UP"}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+        </div>
+        <div onClick={() => handleBoxClick("INVEST2BORROW")}>
+          <Box
+            heading="INVEST2BORROW"
+            description="Earn Loyalty Points by investing daily. The longer your streak, the faster you reach the threshold.
+ Hit the target, play a game, and stand a chance to win a loan — a percentage of your invested amount"
+            bgColor="bg-red-200"
+            isExpanded={expandedBox === "INVEST2BORROW"}
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+        </div>
+        <div onClick={() => handleBoxClick("LUMP-SUM")}>
+          <Box
+            heading="LUMP-SUM"
+            description="With Dimeon, you can automate your investments by setting up High-Amount Deposits — allowing you to invest a fixed amount of your choice every day.
+Whether it’s as little as ₹10 or as much as ₹5000, Dimeon ensures your money keeps growing consistently"
+            bgColor="bg-blue-200"
+            isExpanded={expandedBox === "LUMP-SUM"}
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+      </div>
+      <button className="mt-8 bg-green-500 text-white py-6 px-12 rounded-lg text-3xl">
+        Start Investing!
+      </button>
+      <div className="w-[80vw] flex justify-between mt-8">
+        <div className="w-[30%] h-[60vh] rounded-lg flex flex-col">
+          <div className="bg-red-200 h-1/2 rounded-t-lg"></div>
+          <div className="bg-white h-1/2 rounded-b-lg p-4">
+            <p className="text-black text-lg font-bold">Asset Management Companies (AMCs): An Overview for Young Investors</p>
+          </div>
+        </div>
+        <div className="w-[30%] h-[60vh] rounded-lg flex flex-col">
+          <div className="bg-purple-200 h-1/2 rounded-t-lg"></div>
+          <div className="bg-white h-1/2 rounded-b-lg p-4">
+            <p className="text-black text-lg font-bold">Beginners Guide to Micro Investing: How to Choose the Right App for You</p>
+          </div>
+        </div>
+        <div className="w-[30%] h-[60vh] rounded-lg flex flex-col">
+          <div className="bg-blue-200 h-1/2 rounded-t-lg"></div>
+          <div className="bg-white h-1/2 rounded-b-lg p-4">
+            <p className="text-black text-lg font-bold">Power Of Tiny Gains</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
